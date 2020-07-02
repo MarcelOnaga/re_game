@@ -1,0 +1,10 @@
+version: '3'
+services:
+  backend:
+    image: handyman-backend
+    build: ./backend
+    ports:
+      - "8181:8181"
+    volumes:
+      - ./backend:/usr/src/handyman
+      - /usr/src/re_assignment/node_modules
