@@ -1,4 +1,5 @@
 const {getRandomIntInclusive, generate_random_percent_distribution} = require('./randomize_helpers.js');
+const {Attack, Defend} = require('./actions');
 
 class Skill {
 }
@@ -20,7 +21,7 @@ class CriticalStrikeSkill extends Skill {
         }
     }
     _uses_skill() {
-        return this.chance_wheel[getRandomIntInclusive(0, 100)]
+        return this.big_chance_wheel[getRandomIntInclusive(0, 100)]
     }
     _strike_three_times(){
         return this.small_chance_wheel[getRandomIntInclusive(0,100)];
@@ -33,21 +34,26 @@ class ResilienceSkill extends Skill {
         this.chance_wheel = generate_random_percent_distribution(20);
     }
     influence(action) {
-        if(action instanceof Defence){
-            if(this._uses_skill()){
-                action.strength += action.attacker.strength;
+        if(action instanceof Defend){
+            if(this._uses_skill(action)){
+                action.strength += action.turn.attacker.strength / 2;
                 action.apply_skill(this);
             }
         }
     }
-    _uses_skill() {
+    _uses_skill(action) {
         if(this.chance_wheel[getRandomIntInclusive(0, 100)]){
-            let turns = this.action.turn.fight.turns;
+            let turns = action.turn.fight.turns;
             let last_defance = [...turns][turns.size-2];
             
-            if(!last_defance.defance.skills.find(skill => skill instanceof Resilience))
-                action.strength += this.action.turn.attacker.strength / 2;
-                action.apply_skill(this);
+            if(last_defance.defender.skills.find(skill => skill instanceof ResilienceSkill))
+               return false;
+            return true; 
         }
     }
+}
+
+module.exports = {
+    ResilienceSkill: ResilienceSkill,
+    CriticalStrikeSkill: CriticalStrikeSkill
 }

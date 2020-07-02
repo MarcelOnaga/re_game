@@ -1,11 +1,20 @@
 const {getRandomIntInclusive, generate_random_percent_distribution} = require('./characters/randomize_helpers.js');
-// const creature = require('./characters/creature');
-import {createHero, createVillain } from './characters/creature';
+const {createHero, createVillain} = require('./characters/creature');
+const {Fight} = require('./characters/game');
 
-let hero = creature.createHero();
-console.log(hero)
+let hero = createHero();
+// console.log(hero)
+let villain = createVillain();
+// console.log(villain)
 
-console.log(generate_random_percent_distribution(78))
+let fight = new Fight(hero, villain);
+console.log(fight);
+
+fight.start();
+console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+console.log(fight)
+
+// console.log(generate_random_percent_distribution(78))
 
 
 fixed_arr = new Proxy([], {

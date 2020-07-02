@@ -1,9 +1,12 @@
 const {getRandomIntInclusive, generate_random_percent_distribution} = require('./randomize_helpers.js');
+const {CriticalStrikeSkill, ResilienceSkill} = require('./skils');
+const {Attack, Defend} = require('./actions');
 
 class Creature {
-    constructor(health, strength, defense, speed, luck){
+    constructor(health, strength, defence, speed, luck){
+        this.name = '';
         this.health = health;
-        this.defense = defense;
+        this.defence = defence;
         this.strength = strength;
         this.speed = speed;
         this.luck = luck;
@@ -41,10 +44,11 @@ function createHero(){
     let hero = new Creature(
         getRandomIntInclusive(70, 100), // health
         getRandomIntInclusive(70, 100), // strength
-        getRandomIntInclusive(70, 100), // defence
-        getRandomIntInclusive(70, 100), // speed
-        getRandomIntInclusive(70, 100)  // luck
-    )
+        getRandomIntInclusive(45, 55), // defence
+        getRandomIntInclusive(40, 50), // speed
+        getRandomIntInclusive(10, 30)  // luck
+    );
+    hero.name = 'HERO';
     hero.add_skill(new CriticalStrikeSkill());
     hero.add_skill(new ResilienceSkill());
     return hero;
@@ -57,8 +61,12 @@ function createVillain(){
         getRandomIntInclusive(40, 60), // defence
         getRandomIntInclusive(40, 60), // speed
         getRandomIntInclusive(25, 40)  // luck
-    )
+    );
+    villain.name = 'VILLAIN';
     return villain;
 }
 
-exports { createHero, createVillain }
+module.exports = {
+    createHero: createHero,
+    createVillain: createVillain
+}

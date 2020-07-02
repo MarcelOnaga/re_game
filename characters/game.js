@@ -1,7 +1,6 @@
-
+const {Turn} = require('./turn');
 
 class Game {}
-
 
 class Fight {
     constructor(hero, villain){
@@ -15,10 +14,10 @@ class Fight {
     }
 
     start(){
-        turn = new Turn(this._first_turn);
+        let turn = new Turn(...this._first_turn(), this);
         while (this._add_turn(turn) && !this.winner) {
             this.winner = turn.winner;
-            turn = new Turn(turn.defender, turn.attacker);
+            turn = new Turn(turn.defender, turn.attacker, this);
         }
     }
 
@@ -33,4 +32,8 @@ class Fight {
             return this.hero.luck > this.villain.luck ? [this.hero, this.villain] : [this.villain, this.hero];
         return this.hero.speed > this.villain.speed ? [this.hero, this.villain] : [this.villain, this.hero];
     }
+}
+
+module.exports = {
+    Fight: Fight,
 }

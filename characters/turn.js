@@ -1,4 +1,4 @@
-const {getRandomIntInclusive, generate_random_percent_distribution} = require('./characters/randomize_helpers.js');
+const {getRandomIntInclusive, generate_random_percent_distribution} = require('./randomize_helpers.js');
 
 
 class Turn {
@@ -8,6 +8,7 @@ class Turn {
         this.fight = fight;
         this.lucky_defender = this._defender_gets_lucky;
         this.winner = null;
+        this._attack();
     }
     _defender_gets_lucky() {
         if(generate_random_percent_distribution(this.defender.luck)[getRandomIntInclusive(0, 100)])
@@ -16,48 +17,25 @@ class Turn {
     }
 
     _attack()  {
-
         this.attack = this.attacker.attack(this);
         this.defence = this.defender.defend(this);
-        damage = this.attack.strength - this.defence.strength;
+        let damage = this.attack.strength - this.defence.strength;
+        
+        console.log('Attack:'+this.attack.strength);
+        console.log('Defence:'+this.defence.strength);
+        console.log('Damage:'+damage);
+        
+        if(!this.lucky_defender)
+            this.defender.health -= damage;
+        
     }
 
-}
-
-class TurnAction {
-    constructor(turn){
-        this.turn = turn;
-        this.skills = new Set();
-        this.strength = 0;
-    }
-    apply_skill(skill) {
-        this.skills.add(skill);
+    _check_for_winner() {
+        if(this.defender.health <= 0)
+            this.winner = this.attacker;
     }
 }
 
-class Defend extends TurnAction{
-    constructor(defender, turn){
-        super(turn);
-        this.defender = defender;
-        this._execute();
-    }
-    _execute(){
-        this.strength = this.defender.defence;
-        this.defender.skills.forEach(skill => {
-            skill.influence(this);
-        });
-    }
-}
-class Attack extends TurnAction {
-    constructor(attacker, turn){
-        super(turn);
-        this.attacker = attacker;
-        this._execute();
-    }
-    _execute(){
-        this.strength = this.attacker.strength;
-        this.attacker.skills.forEach(skill => {
-            skill.influence(this);
-        });
-    }
+module.exports = {
+    Turn: Turn
 }
