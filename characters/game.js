@@ -8,9 +8,6 @@ class Fight {
         this.villain = villain;
         this.turns = new Set();
         this.winner = null;
-
-        this.hero.enter_fight(this);
-        this.villain.enter_fight(this);
     }
 
     start(){

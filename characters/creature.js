@@ -11,7 +11,6 @@ class Creature {
         this.speed = speed;
         this.luck = luck;
         this.skills = [];
-        this.fight = null;
     }
     
     attack(turn) {
@@ -22,11 +21,12 @@ class Creature {
         return new Defend(this, turn);
     }
 
-    enter_fight(fight){
-        this.fight = fight;
-    }
     add_skill(skill){
         this.skills.push(skill);
+    }
+
+    update_health(health){
+        this.health = Number(health);
     }
 }
 

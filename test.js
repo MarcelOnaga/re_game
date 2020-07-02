@@ -8,10 +8,10 @@ let villain = createVillain();
 // console.log(villain)
 
 let fight = new Fight(hero, villain);
-console.log(fight);
+// console.log(fight);
 
 fight.start();
-console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+// console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
 console.log(fight)
 
 // console.log(generate_random_percent_distribution(78))
@@ -25,4 +25,4 @@ fixed_arr = new Proxy([], {
     }
 })
 
-console.log(fixed_arr);
+// console.log(fixed_arr);

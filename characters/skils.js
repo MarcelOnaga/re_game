@@ -44,10 +44,11 @@ class ResilienceSkill extends Skill {
     _uses_skill(action) {
         if(this.chance_wheel[getRandomIntInclusive(0, 100)]){
             let turns = action.turn.fight.turns;
-            let last_defance = [...turns][turns.size-2];
-            
-            if(last_defance.defender.skills.find(skill => skill instanceof ResilienceSkill))
-               return false;
+            if (turns.size >2) { //this rule applyes only when we can look back 2 turns
+                let last_defance = [...turns][turns.size-2];  // new turn not registered yet in turns            
+                if(last_defance.defender.skills.find(skill => skill instanceof ResilienceSkill))
+                    return false;
+            }
             return true; 
         }
     }
