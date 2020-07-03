@@ -6,9 +6,14 @@ class Turn {
         this.attacker = attacker;
         this.defender = defender;
         this.fight = fight;
-        this.lucky_defender = this._defender_gets_lucky();
         this.winner = null;
-        this._attack();
+        
+        this.lucky_defender = this._defender_gets_lucky();        
+        this.damage = this._attack();
+        
+        if(!this.lucky_defender)
+            this.defender.update_health(this.defender.health - this.damage);
+        
         this._check_for_winner();
     }
     
@@ -21,10 +26,7 @@ class Turn {
     _attack()  {
         this.attack = this.attacker.attack(this);
         this.defence = this.defender.defend(this);
-        let damage = this.attack.strength - this.defence.strength;
-    
-        if(!this.lucky_defender)
-            this.defender.update_health(this.defender.health - damage);
+        return this.attack.strength - this.defence.strength;       
     }
 
     _check_for_winner() {
