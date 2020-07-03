@@ -1,5 +1,5 @@
 const {getRandomIntInclusive, generate_random_percent_distribution} = require('./randomize_helpers.js');
-const {CriticalStrikeSkill, ResilienceSkill} = require('./skils');
+const {CriticalStrikeSkill, ResilienceSkill} = require('./skills');
 const {Attack, Defend} = require('./actions');
 
 class Creature {

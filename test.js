@@ -1,5 +1,5 @@
-const {createHero, createVillain} = require('./characters/creature');
-const {Fight} = require('./characters/game');
+const {createHero, createVillain} = require('./src/creature');
+const {Fight} = require('./src/game');
 
 let hero = createHero();
 let villain = createVillain();
