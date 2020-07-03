@@ -6,5 +6,5 @@ services:
     ports:
       - "8181:8181"
     volumes:
-      - ./backend:/usr/src/handyman
+      - ./src:/usr/src/re_assignment
       - /usr/src/re_assignment/node_modules
