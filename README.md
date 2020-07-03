@@ -1,4 +1,11 @@
-Some Sort of Hero
+To see a fight between an hero and a villain you will need Node.js installed.
+
+In console execute:
+`node test.js`
+
+
+
+
 
 
 The story 
