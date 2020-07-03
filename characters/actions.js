@@ -6,7 +6,7 @@ class TurnAction {
         this.strength = 0;
     }
     apply_skill(skill) {
-        this.skills.add(skill);
+        this.skills.add(skill.constructor.name);
     }
 }
 

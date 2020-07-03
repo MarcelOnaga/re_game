@@ -1,4 +1,5 @@
 const {Turn} = require('./turn');
+const {Readable} = require('stream');
 
 class Game {}
 
@@ -8,13 +9,25 @@ class Fight {
         this.villain = villain;
         this.turns = new Set();
         this.winner = null;
+        
+        console.log(this.hero.name + " will fight " + this.villain.name);
+        console.log(this.hero.name + "properties: " + JSON.stringify(this.hero));
+        console.log(this.villain.name + "properties: " + JSON.stringify(this.villain));
     }
 
     start(){
         let turn = new Turn(...this._first_turn(), this);
         while (this._add_turn(turn) && !this.winner) {
-            this.winner = turn.winner;
             turn = new Turn(turn.defender, turn.attacker, this);
+            console.log(
+
+            )
+            if(turn.defender.health <= 0){
+                this.winner = turn.attacker;
+                console.log("Winner is: "+ this.winner.name + 
+                "\nWinner's heath: " + this.winner.health + 
+                "\nLoser's heath: " + turn.defender.health)
+            }
         }
     }
 
